@@ -1,0 +1,4334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>East Africa Business Consultants | Transform Your Business</title>
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assest/images/flescarlogo.webp">
+    <link rel="apple-touch-icon" href="assest/images/flescarlogo.webp">
+    
+    <!-- Fonts - Optimized with reduced weights and font-display swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP with ScrollTrigger (load first for critical animations) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
+    
+    <!-- Font Awesome - Deferred -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- AOS Animation - Deferred -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+    
+    <!-- Three.js (defer loading for better performance) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A0F1C', // Darker, richer black
+                        secondary: '#D4AF37', // Brighter, more vibrant gold
+                        accent: '#B8941F', // Darker gold for contrast
+                        light: '#F8F9FA',
+                        dark: '#0A1929',
+                        surface: 'rgba(255, 255, 255, 0.03)',
+                        surfaceHover: 'rgba(255, 255, 255, 0.06)',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'display': ['Manrope', 'sans-serif'],
+                    },
+                    animation: {
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'gradient-x': 'gradient-x 3s ease infinite',
+                        'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.7s ease-out',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'marquee': 'marquee 30s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'gradient-x': {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        pulseSoft: {
+                            '0%, 100%': { opacity: 1 },
+                            '50%': { opacity: 0.7 },
+                        },
+                        slideUp: {
+                            '0%': { opacity: 0, transform: 'translateY(40px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --primary: #0A0F1C;
+            --secondary: #D4AF37;
+            --accent: #B8941F;
+            --surface: rgba(255, 255, 255, 0.03);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #0A0F1C 0%, #151A2E 50%, #0A0F1C 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Canvas containers */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Glow effects */
+        .glow-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: glow-pulse 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        /* Decorative lines */
+        .decorative-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+        }
+
+        .line-horizontal {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .line-vertical {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+        }
+        
+        /* Enhanced Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(10, 15, 28, 0.8);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #D4AF37, #B8941F);
+            border-radius: 6px;
+            border: 3px solid #0A0F1C;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #E5C158, #C9A22A);
+        }
+        
+        /* Section Spacing */
+        .section-spacing {
+            padding: 120px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .section-spacing {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-spacing {
+                padding: 40px 0;
+            }
+        }
+        
+        /* Premium Gradients */
+        .gradient-bg {
+            background: linear-gradient(135deg, 
+                rgba(10, 15, 28, 0.95) 0%, 
+                rgba(10, 15, 28, 0.98) 50%,
+                rgba(20, 25, 40, 0.95) 100%);
+        }
+        
+        .gradient-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #D4AF37 0%, #E5C158 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-border {
+            position: relative;
+            border-radius: 24px;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.2), 
+                rgba(184, 148, 31, 0.1),
+                rgba(212, 175, 55, 0.2));
+            padding: 1px;
+        }
+        
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.4), 
+                rgba(184, 148, 31, 0.2),
+                rgba(212, 175, 55, 0.4));
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        /* Premium Cards */
+        .premium-card {
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.08) 0%,
+                rgba(255, 255, 255, 0.04) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 1 !important;
+            visibility: visible !important;
+            will-change: transform;
+            transform: translateZ(0); /* Force GPU acceleration */
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(212, 175, 55, 0.1),
+                inset 0 0 20px rgba(212, 175, 55, 0.05);
+        }
+        
+        /* Stats */
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #D4AF37, #E5C158);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            position: relative;
+        }
+        
+        .stat-number::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #D4AF37, #E5C158);
+            transition: width 1.5s ease;
+        }
+        
+        .stat-number.animated::after {
+            width: 100%;
+        }
+        
+        /* Background Patterns */
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
+        }
+        
+        .bg-radial-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(184, 148, 31, 0.05) 0%, transparent 50%);
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(60px);
+            opacity: 0.4;
+        }
+        
+        /* Timeline Enhancement */
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4AF37, #B8941F);
+            border: 3px solid #0A0F1C;
+            z-index: 2;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% + 24px);
+            background: linear-gradient(to bottom, 
+                rgba(212, 175, 55, 0.5), 
+                rgba(184, 148, 31, 0.2), 
+                transparent);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* FAQ Enhancement */
+        .faq-item {
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.03) 0%,
+                rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(212, 175, 55, 0.2);
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.04) 0%,
+                rgba(255, 255, 255, 0.02) 100%);
+        }
+        
+        .faq-item.active {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: linear-gradient(145deg, 
+                rgba(212, 175, 55, 0.05) 0%,
+                rgba(184, 148, 31, 0.03) 100%);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 2000px;
+        }
+        
+        /* Service Icon Enhancement */
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.1), 
+                rgba(184, 148, 31, 0.05));
+            border-radius: inherit;
+        }
+        
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.3), 
+                rgba(184, 148, 31, 0.1));
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .premium-card:hover .service-icon::after {
+            opacity: 1;
+        }
+        
+        /* Form Elements Styling */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="file"],
+        textarea,
+        select {
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus,
+        select:focus {
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        input[type="file"]::-webkit-file-upload-button {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 148, 31, 0.2));
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Button Enhancement */
+        .btn-primary {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            color: #0A0F1C;
+            font-weight: 600;
+            padding: 16px 32px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            transition: left 0.7s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Navigation Enhancement */
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #D4AF37, #B8941F);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+
+        /* Radial Gradient Background */
+        .bg-radial-gradient {
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+        }
+
+        /* Animated Gradient Background for Button */
+        .bg-size-200 {
+            background-size: 200% 100%;
+        }
+
+        .bg-pos-0 {
+            background-position: 0% 50%;
+        }
+
+        .bg-pos-100 {
+            background-position: 100% 50%;
+        }
+
+        /* Enhanced Hero Section Styles */
+        .hero-container {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            overflow: visible;
+            padding: 100px 5% 0;
+            perspective: 1000px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-container {
+                height: auto;
+                min-height: 100vh;
+                padding: 80px 4% 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-container {
+                padding: 60px 3% 30px;
+            }
+        }
+
+        .hero-content {
+            max-width: 1600px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 100px;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content {
+                gap: 40px;
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content {
+                gap: 30px;
+                padding: 0 5px;
+            }
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 20;
+            transform: translateZ(50px);
+            overflow: visible;
+            padding-top: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .hero-left {
+                transform: none;
+                padding-top: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-left {
+                text-align: center;
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-left {
+                padding: 0 5px;
+            }
+        }
+
+        /* Animated Badge */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(90deg, 
+                rgba(212, 175, 55, 0.2), 
+                rgba(184, 148, 31, 0.1),
+                rgba(212, 175, 55, 0.2));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 100px;
+            padding: 15px 30px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            animation: badge-float 6s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .hero-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            animation: badge-shine 3s ease-in-out infinite;
+        }
+
+        .badge-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #D4AF37, #E5C158);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 14px;
+            color: #0A0F1C;
+            animation: badge-spin 4s linear infinite;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .badge-text {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #FFF, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Main Headline - Enhanced */
+        .hero-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.25rem;
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            margin-top: 0;
+            position: relative;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: visible;
+            padding-top: 0;
+        }
+        
+        @media (min-width: 1024px) {
+            .hero-headline {
+                font-size: 3rem;
+            }
+        }
+
+        .headline-line {
+            display: block;
+            white-space: nowrap;
+            margin-bottom: 0;
+            line-height: 0.9;
+            margin-top: 0;
+        }
+        .headline-line + .headline-line {
+            margin-top: -0.4em;
+        }
+        .headline-word {
+            display: inline;
+            opacity: 0;
+            transform: translateY(20px);
+            margin-right: 0.3em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, 
+                #D4AF37 0%, 
+                #E5C158 25%, 
+                #FFD166 50%, 
+                #E5C158 75%, 
+                #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: gradient-shift 3s ease-in-out infinite;
+            position: relative;
+            display: inline-block;
+        }
+
+        .gradient-text::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #D4AF37, #FFD166, #D4AF37);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: expandLine 1.5s ease forwards 1.5s;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Animated Subtitle */
+        .hero-subtitle {
+            font-size: 1.5rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 60px;
+            max-width: 650px;
+            position: relative;
+            padding-left: 30px;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        .hero-subtitle::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #D4AF37, transparent);
+            border-radius: 2px;
+            animation: subtitle-glow 2s ease-in-out infinite;
+        }
+
+        /* Enhanced CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 80px;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            color: #0A0F1C;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 22px 50px;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            min-width: 250px;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transition: left 0.7s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary .btn-icon {
+            font-size: 1.4rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover .btn-icon {
+            transform: translateX(5px) rotate(15deg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 22px 50px;
+            border-radius: 16px;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.2) 0%, 
+                rgba(184, 148, 31, 0.1) 100%);
+            border-color: #D4AF37;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                #D4AF37, #E5C158, #D4AF37, #E5C158);
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-secondary:hover::before {
+            opacity: 1;
+            animation: border-rotate 2s linear infinite;
+        }
+
+        /* Enhanced Trust Indicators */
+        .trust-indicators {
+            display: flex;
+            gap: 60px;
+            padding-top: 40px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .trust-item:hover {
+            transform: translateY(-10px);
+            background: rgba(212, 175, 55, 0.05);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .trust-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.15), 
+                rgba(184, 148, 31, 0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #D4AF37;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trust-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            transform: rotate(45deg);
+            animation: icon-shine 3s ease-in-out infinite;
+        }
+
+        .trust-text {
+            text-align: center;
+        }
+
+        .trust-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, #D4AF37, #E5C158);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .trust-number::after {
+            content: '+';
+            position: absolute;
+            right: -20px;
+            color: #D4AF37;
+        }
+
+        .trust-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Right side - 3D Globe with floating cities */
+        .hero-right {
+            position: relative;
+            height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+        }
+
+        /* 3D Globe Container */
+        .globe-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            transform-style: preserve-3d;
+            animation: globe-rotate 40s linear infinite;
+        }
+
+        #globe-canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 100px rgba(212, 175, 55, 0.1),
+                0 0 100px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Floating cities around globe */
+        .floating-city {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.2), 
+                rgba(184, 148, 31, 0.1));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .floating-city:hover {
+            transform: scale(1.2) translateZ(50px);
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.3), 
+                rgba(184, 148, 31, 0.2));
+            border-color: #D4AF37;
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+        }
+
+        .city-icon {
+            font-size: 1.8rem;
+            color: #D4AF37;
+            margin-bottom: 8px;
+        }
+
+        .city-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Connection lines between cities */
+        .city-connection {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(212, 175, 55, 0.5), 
+                transparent);
+            transform-origin: left center;
+            z-index: 5;
+            animation: connection-pulse 3s ease-in-out infinite;
+        }
+
+        /* Business growth visualization */
+        .growth-visualization {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            z-index: 5;
+        }
+
+        .growth-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid rgba(212, 175, 55, 0.1);
+            animation: ring-expand 6s ease-in-out infinite;
+        }
+
+        .growth-ring:nth-child(2) {
+            animation-delay: 2s;
+        }
+
+        .growth-ring:nth-child(3) {
+            animation-delay: 4s;
+        }
+
+        /* Enhanced scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            z-index: 20;
+            cursor: pointer;
+            opacity: 0;
+            animation: fade-in 1s ease forwards 2s;
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: text-glow 2s ease-in-out infinite;
+        }
+
+        .scroll-wheel {
+            width: 40px;
+            height: 70px;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-wheel::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 15px;
+            background: linear-gradient(to bottom, #D4AF37, #E5C158);
+            border-radius: 2px;
+            animation: scroll-wheel 2s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes badge-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes badge-shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes badge-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes expandLine {
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes subtitle-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes border-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes icon-shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        @keyframes globe-rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        @keyframes connection-pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes ring-expand {
+            0% { 
+                width: 0; 
+                height: 0; 
+                opacity: 1; 
+            }
+            100% { 
+                width: 800px; 
+                height: 800px; 
+                opacity: 0; 
+            }
+        }
+
+        @keyframes text-glow {
+            0%, 100% { 
+                color: rgba(255, 255, 255, 0.6);
+                text-shadow: 0 0 10px rgba(212, 175, 55, 0);
+            }
+            50% { 
+                color: #D4AF37;
+                text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            }
+        }
+
+        @keyframes scroll-wheel {
+            0% { 
+                transform: translateX(-50%) translateY(0);
+                opacity: 0;
+            }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { 
+                transform: translateX(-50%) translateY(30px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fade-in {
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 1400px) {
+            .hero-headline {
+                font-size: 2.25rem;
+            }
+            .hero-content {
+                gap: 60px;
+            }
+            .globe-container {
+                width: 500px;
+                height: 500px;
+            }
+        }
+        
+        /* Hide globe on tablets and smaller - only show on laptops (1024px+) and larger */
+        @media (max-width: 1023px) {
+            .hero-right {
+                display: none;
+            }
+            .globe-container {
+                display: none;
+            }
+            .floating-city {
+                display: none;
+            }
+            .growth-visualization {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .hero-headline {
+                font-size: 2.25rem;
+            }
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 60px;
+            }
+            .hero-left {
+                transform: none;
+                padding-top: 0;
+            }
+            .hero-subtitle::before {
+                display: none;
+            }
+            .hero-subtitle {
+                padding-left: 0;
+                margin: 0 auto 40px;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 1.875rem;
+                line-height: 1.1;
+                margin-bottom: 20px;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+                max-width: 100%;
+                margin: 0 auto 30px;
+                padding: 0 10px;
+                line-height: 1.6;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin-top: 20px;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 100%;
+                padding: 14px 24px;
+                font-size: 0.95rem;
+            }
+            .trust-indicators {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+                margin-top: 30px;
+            }
+            .hero-right {
+                display: none;
+            }
+            .globe-container {
+                display: none;
+            }
+            .floating-city {
+                display: none;
+            }
+            .growth-visualization {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-headline {
+                font-size: 1.5rem;
+                line-height: 1.15;
+                margin-bottom: 15px;
+            }
+            .headline-line {
+                white-space: normal;
+            }
+            .hero-subtitle {
+                font-size: 0.9rem;
+                padding: 0 5px;
+                margin-bottom: 25px;
+            }
+            .hero-badge {
+                font-size: 0.85rem;
+                padding: 10px 20px;
+                margin-bottom: 20px;
+            }
+            .trust-number {
+                font-size: 2rem;
+            }
+            .hero-right {
+                display: none;
+            }
+            .globe-container {
+                display: none;
+            }
+            .floating-city {
+                display: none;
+            }
+            .btn-primary, .btn-secondary {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            .scroll-indicator {
+                display: none;
+            }
+        }
+        
+        /* Additional Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            h2 {
+                font-size: 2rem !important;
+            }
+            
+            .text-4xl {
+                font-size: 1.875rem !important;
+            }
+            
+            .text-5xl {
+                font-size: 2.25rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            
+            h2 {
+                font-size: 1.75rem !important;
+            }
+            
+            .text-4xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .text-5xl {
+                font-size: 1.875rem !important;
+            }
+            
+            .grid {
+                gap: 20px !important;
+            }
+        }
+        
+        /* Resources Section Responsive */
+        @media (max-width: 768px) {
+            #resources .text-center.mb-20 {
+                margin-bottom: 1.5rem !important;
+            }
+            
+            #resources h2 {
+                font-size: 1.75rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+            
+            #resources .text-xl {
+                font-size: 0.875rem !important;
+            }
+            
+            #resources .grid {
+                gap: 0.75rem !important;
+            }
+            
+            #resources .premium-card {
+                padding: 0.75rem !important;
+            }
+            
+            #resources .premium-card h3 {
+                font-size: 0.875rem !important;
+                margin-bottom: 0.5rem !important;
+                line-height: 1.3 !important;
+            }
+            
+            #resources .premium-card .w-16,
+            #resources .premium-card .h-16 {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            #resources .premium-card .text-2xl {
+                font-size: 1rem !important;
+            }
+            
+            #resources .premium-card > p {
+                font-size: 0.6875rem !important;
+                margin-bottom: 0.5rem !important;
+                line-height: 1.3 !important;
+            }
+            
+            #resources .premium-card .mb-6 {
+                margin-bottom: 0.5rem !important;
+            }
+            
+            #resources .premium-card .mb-4 {
+                margin-bottom: 0.5rem !important;
+            }
+            
+            #resources .premium-card .space-y-3 {
+                gap: 0.375rem !important;
+            }
+            
+            #resources .premium-card .space-y-3 a {
+                font-size: 0.6875rem !important;
+                padding: 0.25rem 0 !important;
+            }
+            
+            #resources .premium-card .space-y-3 a span {
+                font-size: 0.6875rem !important;
+            }
+            
+            #resources .premium-card .space-y-3 a i {
+                font-size: 0.625rem !important;
+                margin-right: 0.5rem !important;
+            }
+            
+            #resources .premium-card button {
+                padding: 0.5rem 0.75rem !important;
+                font-size: 0.8125rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #resources .text-center.mb-20 {
+                margin-bottom: 1rem !important;
+            }
+            
+            #resources h2 {
+                font-size: 1.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            #resources .text-xl {
+                font-size: 0.75rem !important;
+            }
+            
+            #resources .grid {
+                gap: 0.5rem !important;
+            }
+            
+            #resources .premium-card {
+                padding: 0.625rem !important;
+            }
+            
+            #resources .premium-card h3 {
+                font-size: 0.8125rem !important;
+                margin-bottom: 0.375rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            #resources .premium-card .w-16,
+            #resources .premium-card .h-16 {
+                width: 2rem !important;
+                height: 2rem !important;
+                margin-bottom: 0.375rem !important;
+            }
+            
+            #resources .premium-card .text-2xl {
+                font-size: 0.875rem !important;
+            }
+            
+            #resources .premium-card > p {
+                font-size: 0.625rem !important;
+                margin-bottom: 0.375rem !important;
+                line-height: 1.25 !important;
+            }
+            
+            #resources .premium-card .mb-6 {
+                margin-bottom: 0.375rem !important;
+            }
+            
+            #resources .premium-card .mb-4 {
+                margin-bottom: 0.375rem !important;
+            }
+            
+            #resources .premium-card .space-y-3 {
+                gap: 0.25rem !important;
+            }
+            
+            #resources .premium-card .space-y-3 a {
+                font-size: 0.625rem !important;
+                padding: 0.125rem 0 !important;
+            }
+            
+            #resources .premium-card .space-y-3 a span {
+                font-size: 0.625rem !important;
+            }
+            
+            #resources .premium-card .space-y-3 a i {
+                font-size: 0.5rem !important;
+                margin-right: 0.375rem !important;
+            }
+            
+            #resources .premium-card button {
+                padding: 0.375rem 0.5rem !important;
+                font-size: 0.75rem !important;
+            }
+        }
+        
+        /* Contact Form Responsive */
+        @media (max-width: 768px) {
+            #contact .grid.lg\\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            #contact .premium-card {
+                padding: 1.5rem !important;
+            }
+            
+            #contact input[type="radio"] {
+                width: 16px;
+                height: 16px;
+            }
+            
+            #contact .grid.grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        /* Country Cards Responsive Styles - Match DRC/Zambia style on mobile */
+        @media (max-width: 768px) {
+            /* Force Kenya, Tanzania, Uganda, Rwanda cards to match DRC/Zambia style */
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:first-child,
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(2),
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(3),
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(4) {
+                padding: 1.5rem !important;
+            }
+            
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:first-child > div:first-child,
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(2) > div:first-child,
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(3) > div:first-child,
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(4) > div:first-child {
+                width: 3rem !important;
+                height: 3rem !important;
+                border-radius: 0.5rem !important;
+                border: none !important;
+                background: rgba(212, 175, 55, 0.1) !important;
+            }
+            
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:first-child h3,
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(2) h3,
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(3) h3,
+            .grid.md\\:grid-cols-2.lg\\:grid-cols-4 > div:nth-child(4) h3 {
+                font-size: 1rem !important;
+                margin-bottom: 0.25rem !important;
+            }
+        }
+        
+        /* Client Logo Grid Enhancement */
+        .client-logo {
+            filter: grayscale(100%) brightness(0.8);
+            opacity: 0.7;
+            transition: all 0.4s ease;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .client-logo:hover {
+            filter: grayscale(0%) brightness(1);
+            opacity: 1;
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.05);
+        }
+        
+        /* Process Steps Enhancement */
+        .process-step {
+            position: relative;
+            padding: 24px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.03) 0%,
+                rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.3);
+            background: linear-gradient(145deg, 
+                rgba(212, 175, 55, 0.05) 0%,
+                rgba(184, 148, 31, 0.03) 100%);
+        }
+        
+        .process-step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #D4AF37, #B8941F);
+            color: #0A0F1C;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Floating Contact Enhancement */
+        .floating-contact-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #25D366;
+            color: #ffffff;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        
+        .floating-contact-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+            background: #20BA5A;
+        }
+
+        /* WhatsApp Chat Widget */
+        .whatsapp-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 320px;
+            max-width: calc(100vw - 60px);
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .whatsapp-widget.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .whatsapp-widget-header {
+            background: #075E54;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .whatsapp-widget-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .whatsapp-widget-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            object-fit: contain;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+
+        .whatsapp-widget-header-text h4 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .whatsapp-widget-header-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            margin: 4px 0 0 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .whatsapp-widget-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+            display: inline-block;
+        }
+
+        .whatsapp-widget-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .whatsapp-widget-close:hover {
+            opacity: 1;
+        }
+
+        .whatsapp-widget-message {
+            padding: 16px;
+            background: #E5DDD5;
+        }
+
+        .whatsapp-widget-bubble {
+            background: #DCF8C6;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+            max-width: 85%;
+            position: relative;
+        }
+
+        .whatsapp-widget-bubble::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 8px 12px 0;
+            border-color: transparent #DCF8C6 transparent transparent;
+        }
+
+        .whatsapp-widget-button {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            width: 100%;
+            border-radius: 0;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .whatsapp-widget-button:hover {
+            background: #20BA5A;
+        }
+
+        .whatsapp-widget-footer {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .whatsapp-widget-footer-online {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .whatsapp-widget-footer-online-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4CAF50;
+        }
+        
+        .floating-contact-btn::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4AF37, #B8941F);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(8px);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+        
+        /* Testimonial Enhancement */
+        .testimonial-card {
+            position: relative;
+            padding: 32px;
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.03) 0%,
+                rgba(255, 255, 255, 0.01) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 4rem;
+            color: rgba(212, 175, 55, 0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        /* Enhanced Text Contrast */
+        .text-subtle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .text-muted {
+            color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-primary text-white relative">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 py-5 px-6 lg:px-12 transition-all duration-300 bg-primary/90 backdrop-blur-lg border-b border-secondary/10">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <!-- Enhanced Logo -->
+                <a href="#" class="flex items-center group">
+                    <img src="assest/images/flescarlogo.webp" alt="Flescar Legal Logo" class="h-12 w-auto object-contain">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-12">
+                    <a href="#home" class="nav-link text-white font-medium">Home</a>
+                    <a href="#about" class="nav-link text-white font-medium">About</a>
+                    <a href="#locations" class="nav-link text-white font-medium">Locations</a>
+                    <a href="#services" class="nav-link text-white font-medium">Services</a>
+                    <a href="#process" class="nav-link text-white font-medium">Process</a>
+                    <a href="#clients" class="nav-link text-white font-medium">Clients</a>
+                    <a href="#faq" class="nav-link text-white font-medium">FAQ</a>
+                    <button class="btn-primary px-8 py-3">
+                        Book Consultation
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="menu-toggle" class="lg:hidden text-white text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden lg:hidden mt-6 pb-4 border-t border-secondary/10 pt-6">
+                <div class="flex flex-col space-y-6">
+                    <a href="#home" class="text-white font-medium hover:text-secondary transition">Home</a>
+                    <a href="#about" class="text-white font-medium hover:text-secondary transition">About</a>
+                    <a href="#locations" class="text-white font-medium hover:text-secondary transition">Locations</a>
+                    <a href="#services" class="text-white font-medium hover:text-secondary transition">Services</a>
+                    <a href="#process" class="text-white font-medium hover:text-secondary transition">Process</a>
+                    <a href="#clients" class="text-white font-medium hover:text-secondary transition">Clients</a>
+                    <a href="#faq" class="text-white font-medium hover:text-secondary transition">FAQ</a>
+                    <button class="btn-primary w-full py-3">
+                        Book Consultation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-container">
+        <!-- Background canvas for effects -->
+        <canvas id="bg-canvas"></canvas>
+        <canvas id="particle-canvas"></canvas>
+        
+        <!-- Glow effect -->
+        <div class="glow-effect"></div>
+        
+        <!-- Decorative lines -->
+        <div class="decorative-line line-horizontal"></div>
+        <div class="decorative-line line-vertical"></div>
+        
+        <div class="hero-content">
+            <!-- Left side: Content -->
+            <div class="hero-left">
+                <!-- Main Headline -->
+                <h1 class="hero-headline" id="animated-headline">
+                    <span class="headline-line">
+                        <span class="headline-word">Transform</span>
+                        <span class="headline-word">Your</span>
+                        <span class="headline-word">Business</span>
+                        <span class="headline-word">Across</span>
+                    </span>
+                    <br>
+                    <span class="headline-line">
+                        <span class="headline-word gradient-text">East Africa</span>
+                    </span>
+                </h1>
+                
+                <!-- Animated Subtitle -->
+                <p class="hero-subtitle" id="animated-subtitle">
+                    Strategic growth consulting for visionary leaders. From startup inception to successful 
+                    exit strategies—we architect sustainable business success across Africa's fastest-growing markets.
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="cta-buttons" id="animated-cta">
+                    <button class="btn-primary" onclick="scrollToCTA()">
+                        Start Elite Consultation
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Right side: 3D Globe with floating cities -->
+            <div class="hero-right">
+                <!-- Growth visualization rings -->
+                <div class="growth-visualization">
+                    <div class="growth-ring"></div>
+                    <div class="growth-ring"></div>
+                    <div class="growth-ring"></div>
+                </div>
+                
+                <!-- 3D Globe Container -->
+                <div class="globe-container">
+                    <canvas id="globe-canvas"></canvas>
+                    
+                    <!-- Floating cities with connections -->
+                    <div class="floating-city" style="top: 20%; left: 10%;" data-city="Nairobi">
+                        <div class="city-icon">🌆</div>
+                        <div class="city-name">Nairobi</div>
+                    </div>
+                    
+                    <div class="floating-city" style="top: 15%; left: 70%;" data-city="Kampala">
+                        <div class="city-icon">🏙️</div>
+                        <div class="city-name">Kampala</div>
+                    </div>
+                    
+                    <div class="floating-city" style="top: 50%; left: 80%;" data-city="Dar es Salaam">
+                        <div class="city-icon">🌊</div>
+                        <div class="city-name">Dar es Salaam</div>
+                    </div>
+                    
+                    <div class="floating-city" style="top: 70%; left: 60%;" data-city="Lusaka">
+                        <div class="city-icon">💎</div>
+                        <div class="city-name">Lusaka</div>
+                    </div>
+                    
+                    <div class="floating-city" style="top: 60%; left: 30%;" data-city="Kigali">
+                        <div class="city-icon">🏔️</div>
+                        <div class="city-name">Kigali</div>
+                    </div>
+                    
+                    <div class="floating-city" style="top: 40%; left: 20%;" data-city="DRC">
+                        <div class="city-icon">🌍</div>
+                        <div class="city-name">DRC</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator" onclick="scrollToNext()">
+            <span class="scroll-text">Discover Our Impact</span>
+            <div class="scroll-wheel"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-spacing relative bg-grid-pattern">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-8">
+                        <span class="text-secondary font-semibold">About Our Firm</span>
+                    </div>
+                    
+                    <h2 class="text-4xl lg:text-5xl font-display font-bold mb-8">
+                        Pioneering Excellence Across 
+                        <span class="gradient-text">East Africa</span>
+                    </h2>
+                    
+                    <p class="text-lg text-subtle mb-10 leading-relaxed">
+                        For over a decade, East Africa Business Consultants has been the trusted partner for businesses navigating Africa's complex markets. Our team combines deep local expertise with global best practices.
+                    </p>
+                    
+                    <!-- Enhanced Feature List -->
+                    <div class="space-y-8 mb-12">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-accent/10 flex items-center justify-center mr-6 flex-shrink-0 border border-secondary/20">
+                                <i class="fas fa-globe-africa text-secondary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-white">Regional Expertise</h4>
+                                <p class="text-subtle">Deep understanding of regulatory frameworks across 12 African countries</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/10 to-secondary/10 flex items-center justify-center mr-6 flex-shrink-0 border border-accent/20">
+                                <i class="fas fa-route text-accent text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-white">End-to-End Solutions</h4>
+                                <p class="text-subtle">From business registration to exit strategy - complete lifecycle support</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/10 to-accent/10 flex items-center justify-center mr-6 flex-shrink-0 border border-secondary/20">
+                                <i class="fas fa-handshake text-secondary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-white">Partnership Approach</h4>
+                                <p class="text-subtle">We work alongside you as strategic partners, not just consultants</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary">
+                        Learn More About Us
+                    </button>
+                </div>
+                
+                <!-- Enhanced Stats Section -->
+                <div data-aos="fade-left">
+                    <div class="premium-card p-10">
+                        <div class="grid grid-cols-2 gap-10 mb-16">
+                            <div class="text-center">
+                                <div class="stat-number mb-3" data-count="200">0</div>
+                                <div class="text-muted font-medium">Successful Clients</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number mb-3" data-count="450">0</div>
+                                <div class="text-muted font-medium">Projects Completed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number mb-3" data-count="98">0</div>
+                                <div class="text-muted font-medium">Client Satisfaction</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="stat-number mb-3" data-count="12">0</div>
+                                <div class="text-muted font-medium">African Countries</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-spacing relative bg-radial-pattern">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-6">
+                    <span class="text-secondary font-semibold">Our Services</span>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6 text-white">
+                    Comprehensive Business Solutions
+                </h2>
+                <p class="text-xl text-white max-w-3xl mx-auto leading-relaxed" style="color: rgba(255, 255, 255, 0.9);">
+                    End-to-end consulting services designed to support your business at every growth stage
+                </p>
+            </div>
+            
+            <!-- Enhanced Services Grid -->
+            <div class="grid lg:grid-cols-3 gap-10">
+                <!-- Service 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="premium-card p-10" style="opacity: 1; visibility: visible;">
+                    <h3 class="text-2xl font-bold mb-6 text-secondary">Business Registration & Setup</h3>
+                    <p class="text-white/90 mb-8" style="color: rgba(255, 255, 255, 0.9);">
+                        Complete company registration, legal compliance, tax registration, and business licensing across East Africa.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Company Registration</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Tax & Regulatory Compliance</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Business Licensing</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Office Setup Assistance</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 rounded-xl border-2 border-secondary/30 text-secondary font-semibold hover:bg-secondary/10 transition-colors">
+                        Learn More →
+                    </button>
+                </div>
+                
+                <!-- Service 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="premium-card p-10" style="opacity: 1; visibility: visible;">
+                    <h3 class="text-2xl font-bold mb-6 text-secondary">Business Growth & Scaling</h3>
+                    <p class="text-white/90 mb-8" style="color: rgba(255, 255, 255, 0.9);">
+                        Strategic planning, operational optimization, market expansion, and performance enhancement services.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Strategic Business Planning</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Market Expansion Strategy</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Operational Optimization</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Financial Management</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 rounded-xl border-2 border-secondary/30 text-secondary font-semibold hover:bg-secondary/10 transition-colors">
+                        Learn More →
+                    </button>
+                </div>
+                
+                <!-- Service 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="premium-card p-10" style="opacity: 1; visibility: visible;">
+                    <h3 class="text-2xl font-bold mb-6 text-secondary">Exit Strategy & M&A</h3>
+                    <p class="text-white/90 mb-8" style="color: rgba(255, 255, 255, 0.9);">
+                        Business valuation, succession planning, merger & acquisition advisory, and strategic exit planning.
+                    </p>
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Business Valuation</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Succession Planning</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">M&A Advisory</span>
+                        </li>
+                        <li class="flex items-center text-white">
+                            <div class="w-6 h-6 rounded-full bg-secondary/20 flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-secondary text-xs"></i>
+                            </div>
+                            <span class="text-white">Exit Strategy Development</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-4 rounded-xl border-2 border-secondary/30 text-secondary font-semibold hover:bg-secondary/10 transition-colors">
+                        Learn More →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="section-spacing relative bg-grid-pattern">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-6">
+                    <span class="text-secondary font-semibold">Our Process</span>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6">
+                    How We Deliver Excellence
+                </h2>
+                <p class="text-xl text-subtle max-w-3xl mx-auto">
+                    A structured, transparent approach ensuring your business objectives are met efficiently
+                </p>
+            </div>
+            
+            <!-- Enhanced Process Steps -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                <div data-aos="fade-up" data-aos-delay="100" class="process-step">
+                    <div class="process-step-number">1</div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Discovery & Analysis</h3>
+                    <p class="text-subtle">
+                        Comprehensive understanding of your business goals, challenges, and market position.
+                    </p>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="200" class="process-step">
+                    <div class="process-step-number">2</div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Strategy Development</h3>
+                    <p class="text-subtle">
+                        Creating tailored strategies and action plans based on in-depth analysis.
+                    </p>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="300" class="process-step">
+                    <div class="process-step-number">3</div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Implementation</h3>
+                    <p class="text-subtle">
+                        Executing strategies with precision, supported by our expert team.
+                    </p>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="400" class="process-step">
+                    <div class="process-step-number">4</div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Monitoring & Growth</h3>
+                    <p class="text-subtle">
+                        Continuous monitoring, optimization, and scaling for sustainable growth.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Enhanced Timeline -->
+            <div data-aos="fade-up">
+                <h3 class="text-3xl font-bold text-center mb-12">Client Journey Timeline</h3>
+                <div class="max-w-3xl mx-auto">
+                    <div class="timeline-item">
+                        <h4 class="font-bold text-lg mb-2 text-white">Initial Consultation (Week 1)</h4>
+                        <p class="text-subtle">Comprehensive business assessment and goal alignment</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="font-bold text-lg mb-2 text-white">Strategy Development (Weeks 2-3)</h4>
+                        <p class="text-subtle">Customized strategy creation and approval process</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="font-bold text-lg mb-2 text-white">Implementation Phase (Weeks 4-8)</h4>
+                        <p class="text-subtle">Execution of agreed strategies with regular updates</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4 class="font-bold text-lg mb-2 text-white">Review & Scaling (Ongoing)</h4>
+                        <p class="text-subtle">Performance review and growth optimization</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients" class="section-spacing relative bg-radial-pattern">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-6">
+                    <span class="text-secondary font-semibold">Our Clients</span>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6">
+                    Trusted by Industry Leaders
+                </h2>
+                <p class="text-xl text-subtle max-w-3xl mx-auto">
+                    We've partnered with businesses of all sizes across diverse sectors in East Africa
+                </p>
+            </div>
+            
+            <!-- Enhanced Client Logos -->
+            <div class="mb-20 overflow-hidden">
+                <div class="flex animate-marquee">
+                    <div class="flex space-x-16 px-8">
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">Sunrise Ltd</span>
+                        </div>
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">Zuri Dental</span>
+                        </div>
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">DesignHub</span>
+                        </div>
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">Withinearth</span>
+                        </div>
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">Plexuser</span>
+                        </div>
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">Sunrise Ltd</span>
+                        </div>
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">Zuri Dental</span>
+                        </div>
+                        <div class="client-logo flex items-center justify-center">
+                            <span class="text-2xl font-display font-bold text-white">DesignHub</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enhanced Testimonials -->
+            <div class="grid lg:grid-cols-3 gap-10">
+                <div data-aos="fade-up" data-aos-delay="100" class="testimonial-card">
+                    <div class="text-secondary text-2xl mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-subtle mb-8 italic">
+                        "East Africa Business Consultants transformed our startup into a thriving business. Their expertise in market entry strategy was invaluable."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center mr-4 border border-secondary/20">
+                            <span class="font-bold text-secondary">JM</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-white">John Mwangi</div>
+                            <div class="text-muted text-sm">CEO, Sunrise Ltd</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="200" class="testimonial-card">
+                    <div class="text-secondary text-2xl mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-subtle mb-8 italic">
+                        "Professional, responsive, and results-oriented. They handled our company registration and expansion seamlessly across three countries."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent/20 to-secondary/20 flex items-center justify-center mr-4 border border-accent/20">
+                            <span class="font-bold text-accent">SK</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-white">Sarah Kimani</div>
+                            <div class="text-muted text-sm">Founder, Zuri Dental</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="300" class="testimonial-card">
+                    <div class="text-secondary text-2xl mb-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-subtle mb-8 italic">
+                        "The strategic guidance provided during our business sale process maximized our valuation. Exceptional service from start to finish."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center mr-4 border border-secondary/20">
+                            <span class="font-bold text-secondary">DA</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-white">David Akumu</div>
+                            <div class="text-muted text-sm">Former Owner, Tech Solutions Ltd</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section-spacing relative bg-grid-pattern">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-6">
+                    <span class="text-secondary font-semibold">FAQ</span>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6">
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-xl text-subtle max-w-3xl mx-auto">
+                    Get answers to common questions about our services and processes
+                </p>
+            </div>
+            
+            <!-- Enhanced FAQ -->
+            <div class="max-w-4xl mx-auto">
+                <!-- FAQ Item 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="faq-item">
+                    <div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFAQ(1)">
+                        <h3 class="text-xl font-bold text-white">What are the requirements for registering a company in Kenya?</h3>
+                        <span class="faq-toggle text-2xl text-secondary">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <div class="pb-6 text-subtle">
+                            <p class="mb-4">The requirements for company registration in Kenya include:</p>
+                            <ul class="space-y-2 pl-5">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-secondary mr-3 mt-1"></i>
+                                    <span>Proposed company name (minimum of three options)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-secondary mr-3 mt-1"></i>
+                                    <span>Details of directors (minimum of one, maximum of twenty)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-secondary mr-3 mt-1"></i>
+                                    <span>Details of shareholders and their share allocation</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-secondary mr-3 mt-1"></i>
+                                    <span>Physical address of the company's registered office in Kenya</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-secondary mr-3 mt-1"></i>
+                                    <span>Company secretary details (can be appointed after registration)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-secondary mr-3 mt-1"></i>
+                                    <span>Memorandum and Articles of Association</span>
+                                </li>
+                            </ul>
+                            <p class="mt-4">The entire process typically takes 7-14 working days, depending on the company structure.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="faq-item">
+                    <div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFAQ(2)">
+                        <h3 class="text-xl font-bold text-white">How long does it take to register a company in Kenya?</h3>
+                        <span class="faq-toggle text-2xl text-secondary">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <div class="pb-6 text-subtle">
+                            <p>The company registration timeline in Kenya varies based on several factors:</p>
+                            <ul class="space-y-3 mt-4 pl-5">
+                                <li><strong>Private Company Limited by Shares:</strong> 7-10 working days</li>
+                                <li><strong>Public Limited Company:</strong> 10-14 working days</li>
+                                <li><strong>Company Limited by Guarantee:</strong> 7-12 working days</li>
+                                <li><strong>Foreign Company Registration:</strong> 14-21 working days</li>
+                            </ul>
+                            <p class="mt-4">These timelines assume all required documents are correctly prepared and submitted. Our firm guarantees efficient processing through our established relationships with regulatory bodies.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="faq-item">
+                    <div class="flex justify-between items-center cursor-pointer p-6" onclick="toggleFAQ(3)">
+                        <h3 class="text-xl font-bold text-white">What other services do you offer after company registration?</h3>
+                        <span class="faq-toggle text-2xl text-secondary">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                    </div>
+                    <div class="faq-answer px-6">
+                        <div class="pb-6 text-subtle">
+                            <p>We provide comprehensive post-registration services including:</p>
+                            <div class="grid md:grid-cols-2 gap-6 mt-4">
+                                <div>
+                                    <h4 class="font-bold mb-2 text-white">Compliance Services</h4>
+                                    <ul class="space-y-1 text-sm">
+                                        <li>• Annual returns filing</li>
+                                        <li>• Tax compliance and registration</li>
+                                        <li>• Business licensing renewals</li>
+                                        <li>• Statutory books maintenance</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2 text-white">Business Support</h4>
+                                    <ul class="space-y-1 text-sm">
+                                        <li>• Accounting and bookkeeping</li>
+                                        <li>• Payroll processing</li>
+                                        <li>• VAT registration and returns</li>
+                                        <li>• Audit services</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geographic Coverage Section -->
+    <section id="locations" class="section-spacing relative bg-radial-pattern">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-6">
+                    <span class="text-secondary font-semibold">Our Coverage</span>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6 text-white">
+                    Serving Businesses Across <span class="gradient-text">Sub-Saharan Africa</span>
+                </h2>
+                <p class="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+                    With a strong presence in Kenya and expanding operations across Sub-Saharan Africa, we bring local expertise and global best practices to your business.
+                </p>
+            </div>
+
+            <!-- Countries Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <!-- Kenya - Primary Location -->
+                <div data-aos="fade-up" data-aos-delay="100" class="premium-card p-6 lg:p-8 flex items-center gap-4 lg:flex-col lg:text-center group cursor-pointer" style="opacity: 1; visibility: visible;">
+                    <div class="w-12 h-12 lg:w-16 lg:h-16 rounded-lg lg:rounded-full bg-secondary/10 lg:bg-gradient-to-br lg:from-secondary/20 lg:to-accent/20 flex items-center justify-center flex-shrink-0 lg:mx-auto lg:mb-4 lg:border-2 lg:border-secondary/30 group-hover:border-secondary transition-colors">
+                        <i class="fas fa-globe-africa lg:fa-map-marker-alt text-secondary lg:text-2xl"></i>
+                    </div>
+                    <div class="flex-1 lg:flex-none">
+                        <h3 class="font-bold lg:text-xl text-white mb-1 lg:mb-2">Kenya</h3>
+                        <p class="text-white/70 text-sm lg:mb-4">Primary Operations</p>
+                        <div class="flex items-center gap-2 text-xs text-secondary lg:justify-center hidden lg:flex">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Full Service Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tanzania -->
+                <div data-aos="fade-up" data-aos-delay="200" class="premium-card p-6 lg:p-8 flex items-center gap-4 lg:flex-col lg:text-center group cursor-pointer" style="opacity: 1; visibility: visible;">
+                    <div class="w-12 h-12 lg:w-16 lg:h-16 rounded-lg lg:rounded-full bg-secondary/10 lg:bg-gradient-to-br lg:from-secondary/20 lg:to-accent/20 flex items-center justify-center flex-shrink-0 lg:mx-auto lg:mb-4 lg:border-2 lg:border-secondary/30 group-hover:border-secondary transition-colors">
+                        <i class="fas fa-globe-africa lg:fa-map-marker-alt text-secondary lg:text-2xl"></i>
+                    </div>
+                    <div class="flex-1 lg:flex-none">
+                        <h3 class="font-bold lg:text-xl text-white mb-1 lg:mb-2">Tanzania</h3>
+                        <p class="text-white/70 text-sm lg:mb-4">Regional Presence</p>
+                        <div class="flex items-center gap-2 text-xs text-secondary lg:justify-center hidden lg:flex">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Full Service Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uganda -->
+                <div data-aos="fade-up" data-aos-delay="300" class="premium-card p-6 lg:p-8 flex items-center gap-4 lg:flex-col lg:text-center group cursor-pointer" style="opacity: 1; visibility: visible;">
+                    <div class="w-12 h-12 lg:w-16 lg:h-16 rounded-lg lg:rounded-full bg-secondary/10 lg:bg-gradient-to-br lg:from-secondary/20 lg:to-accent/20 flex items-center justify-center flex-shrink-0 lg:mx-auto lg:mb-4 lg:border-2 lg:border-secondary/30 group-hover:border-secondary transition-colors">
+                        <i class="fas fa-globe-africa lg:fa-map-marker-alt text-secondary lg:text-2xl"></i>
+                    </div>
+                    <div class="flex-1 lg:flex-none">
+                        <h3 class="font-bold lg:text-xl text-white mb-1 lg:mb-2">Uganda</h3>
+                        <p class="text-white/70 text-sm lg:mb-4">Regional Presence</p>
+                        <div class="flex items-center gap-2 text-xs text-secondary lg:justify-center hidden lg:flex">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Full Service Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rwanda -->
+                <div data-aos="fade-up" data-aos-delay="400" class="premium-card p-6 lg:p-8 flex items-center gap-4 lg:flex-col lg:text-center group cursor-pointer" style="opacity: 1; visibility: visible;">
+                    <div class="w-12 h-12 lg:w-16 lg:h-16 rounded-lg lg:rounded-full bg-secondary/10 lg:bg-gradient-to-br lg:from-secondary/20 lg:to-accent/20 flex items-center justify-center flex-shrink-0 lg:mx-auto lg:mb-4 lg:border-2 lg:border-secondary/30 group-hover:border-secondary transition-colors">
+                        <i class="fas fa-globe-africa lg:fa-map-marker-alt text-secondary lg:text-2xl"></i>
+                    </div>
+                    <div class="flex-1 lg:flex-none">
+                        <h3 class="font-bold lg:text-xl text-white mb-1 lg:mb-2">Rwanda</h3>
+                        <p class="text-white/70 text-sm lg:mb-4">Regional Presence</p>
+                        <div class="flex items-center gap-2 text-xs text-secondary lg:justify-center hidden lg:flex">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Full Service Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Countries List -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- DRC -->
+                <div data-aos="fade-up" data-aos-delay="100" class="premium-card p-6 flex items-center gap-4" style="opacity: 1; visibility: visible;">
+                    <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-globe-africa text-secondary"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-1">DRC</h4>
+                        <p class="text-white/70 text-sm">Democratic Republic of Congo</p>
+                    </div>
+                </div>
+
+                <!-- Zambia -->
+                <div data-aos="fade-up" data-aos-delay="200" class="premium-card p-6 flex items-center gap-4" style="opacity: 1; visibility: visible;">
+                    <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-globe-africa text-secondary"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-1">Zambia</h4>
+                        <p class="text-white/70 text-sm">Regional Operations</p>
+                    </div>
+                </div>
+
+                <!-- Other Sub-Saharan Countries -->
+                <div data-aos="fade-up" data-aos-delay="300" class="premium-card p-6 flex items-center gap-4" style="opacity: 1; visibility: visible;">
+                    <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-globe-africa text-secondary"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-1">Other Regions</h4>
+                        <p class="text-white/70 text-sm">Sub-Saharan Africa Coverage</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="mt-16 text-center" data-aos="fade-up">
+                <div class="premium-card p-8 max-w-3xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4 text-white">Ready to Expand Your Business?</h3>
+                    <p class="text-white/80 mb-6">
+                        Whether you're looking to set up in Kenya or expand across Sub-Saharan Africa, our team has the local expertise and regional knowledge to guide your business journey.
+                    </p>
+                    <button class="btn-primary">
+                        <i class="fas fa-map-marked-alt mr-3"></i> Explore Our Locations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources / Knowledge Center Section -->
+    <section id="resources" class="section-spacing relative bg-grid-pattern">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-20" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-6">
+                    <span class="text-secondary font-semibold">Resources</span>
+                </div>
+                <h2 class="text-4xl lg:text-5xl font-display font-bold mb-6 text-white">
+                    Knowledge Center
+                </h2>
+                <p class="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+                    Access comprehensive guides, regulatory updates, and expert insights to support your business journey
+                </p>
+            </div>
+
+            <!-- Resources Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Downloadable Guides -->
+                <div data-aos="fade-up" data-aos-delay="100" class="premium-card p-8 group cursor-pointer hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center mb-6 border border-secondary/30 group-hover:border-secondary transition-colors">
+                        <i class="fas fa-file-download text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Downloadable Guides</h3>
+                    <p class="text-white/70 mb-6 text-sm leading-relaxed">
+                        Comprehensive step-by-step guides for business registration, compliance, and expansion across East Africa.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Business Registration Guide</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Tax Compliance Handbook</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Cross-Border Expansion Guide</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blog/Articles -->
+                <div data-aos="fade-up" data-aos-delay="200" class="premium-card p-8 group cursor-pointer hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-secondary/20 flex items-center justify-center mb-6 border border-accent/30 group-hover:border-accent transition-colors">
+                        <i class="fas fa-blog text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Blog & Articles</h3>
+                    <p class="text-white/70 mb-6 text-sm leading-relaxed">
+                        Expert insights, market analysis, and industry trends to keep you informed about East African business landscape.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Latest Market Trends</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Regulatory Changes</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Success Stories</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Regulatory Updates -->
+                <div data-aos="fade-up" data-aos-delay="300" class="premium-card p-8 group cursor-pointer hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center mb-6 border border-secondary/30 group-hover:border-secondary transition-colors">
+                        <i class="fas fa-gavel text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Regulatory Updates</h3>
+                    <p class="text-white/70 mb-6 text-sm leading-relaxed">
+                        Stay updated with the latest regulatory changes, compliance requirements, and legal updates across East Africa.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Kenya Regulatory Updates</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Tanzania Compliance News</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Regional Policy Changes</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Whitepapers -->
+                <div data-aos="fade-up" data-aos-delay="400" class="premium-card p-8 group cursor-pointer hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-accent/20 to-secondary/20 flex items-center justify-center mb-6 border border-accent/30 group-hover:border-accent transition-colors">
+                        <i class="fas fa-file-alt text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Whitepapers</h3>
+                    <p class="text-white/70 mb-6 text-sm leading-relaxed">
+                        In-depth research papers and analysis on business opportunities, market entry strategies, and industry insights.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Market Entry Strategies</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Investment Opportunities</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Economic Outlook Reports</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Video Tutorials -->
+                <div data-aos="fade-up" data-aos-delay="500" class="premium-card p-8 group cursor-pointer hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center mb-6 border border-secondary/30 group-hover:border-secondary transition-colors">
+                        <i class="fas fa-video text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Video Tutorials</h3>
+                    <p class="text-white/70 mb-6 text-sm leading-relaxed">
+                        Step-by-step video guides covering business registration, compliance procedures, and best practices.
+                    </p>
+                    <div class="space-y-3">
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Registration Process Walkthrough</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Tax Filing Tutorials</span>
+                        </a>
+                        <a href="#" class="flex items-center text-secondary hover:text-accent transition-colors group/item">
+                            <i class="fas fa-arrow-right text-xs mr-3 group-hover/item:translate-x-1 transition-transform"></i>
+                            <span class="text-sm">Compliance Best Practices</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resource CTA Card -->
+                <div data-aos="fade-up" data-aos-delay="600" class="premium-card p-8 bg-gradient-to-br from-secondary/10 to-accent/10 border-2 border-secondary/30 group cursor-pointer hover:scale-105 transition-transform">
+                    <div class="w-16 h-16 rounded-xl bg-secondary/20 flex items-center justify-center mb-6 border border-secondary/40">
+                        <i class="fas fa-book-open text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Access All Resources</h3>
+                    <p class="text-white/80 mb-6 text-sm leading-relaxed">
+                        Get unlimited access to our complete knowledge base, exclusive content, and expert resources.
+                    </p>
+                    <button class="w-full py-3 rounded-lg bg-gradient-to-r from-secondary to-accent text-primary font-semibold hover:shadow-lg hover:shadow-secondary/30 transition-all">
+                        Browse All Resources
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="section-spacing relative bg-radial-pattern">
+        <div class="container mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center mb-12" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-secondary/10 to-accent/10 border border-secondary/20 mb-6">
+                    <span class="text-secondary font-semibold">Get In Touch</span>
+                </div>
+                <h2 class="text-3xl lg:text-4xl font-display font-bold mb-4 text-white">
+                    Let's Start Your Business Journey
+                </h2>
+                <p class="text-lg text-white/80 max-w-2xl mx-auto">
+                    Fill out the form below and our team will get back to you within 2 business hours
+                </p>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="max-w-3xl mx-auto">
+                <div class="premium-card p-6 lg:p-8" data-aos="fade-up">
+                    <form id="contactForm" class="space-y-4">
+                        <!-- Row 1: Name and Email -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-white font-medium mb-1.5 text-sm">Full Name *</label>
+                                <input type="text" id="name" name="name" required
+                                    class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors text-sm"
+                                    placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-white font-medium mb-1.5 text-sm">Email Address *</label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors text-sm"
+                                    placeholder="john@example.com">
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Phone and Service -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="phone" class="block text-white font-medium mb-1.5 text-sm">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required
+                                    class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors text-sm"
+                                    placeholder="+254 700 000 000">
+                            </div>
+                            <div>
+                                <label for="service" class="block text-white font-medium mb-1.5 text-sm">Service Inquiry *</label>
+                                <select id="service" name="service" required
+                                    class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-secondary transition-colors text-sm">
+                                    <option value="" class="bg-primary">Select service...</option>
+                                    <option value="business-registration" class="bg-primary">Business Registration</option>
+                                    <option value="company-setup" class="bg-primary">Company Setup</option>
+                                    <option value="business-scaling" class="bg-primary">Business Scaling</option>
+                                    <option value="exit-strategy" class="bg-primary">Exit Strategy</option>
+                                    <option value="compliance-services" class="bg-primary">Compliance Services</option>
+                                    <option value="m-a-advisory" class="bg-primary">M&A Advisory</option>
+                                    <option value="tax-services" class="bg-primary">Tax Services</option>
+                                    <option value="other" class="bg-primary">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Timeline and Contact Method -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="timeline" class="block text-white font-medium mb-1.5 text-sm">Project Timeline *</label>
+                                <select id="timeline" name="timeline" required
+                                    class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:border-secondary transition-colors text-sm">
+                                    <option value="" class="bg-primary">Select timeline...</option>
+                                    <option value="asap" class="bg-primary">ASAP / Urgent</option>
+                                    <option value="1-month" class="bg-primary">Within 1 Month</option>
+                                    <option value="3-months" class="bg-primary">Within 3 Months</option>
+                                    <option value="6-months" class="bg-primary">Within 6 Months</option>
+                                    <option value="exploring" class="bg-primary">Just Exploring</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-white font-medium mb-1.5 text-sm">Preferred Contact *</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <label class="flex items-center p-2 rounded-lg bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 hover:border-secondary/30 transition-colors group">
+                                        <input type="radio" name="contactMethod" value="email" required class="mr-2 accent-secondary" style="width: 14px; height: 14px;">
+                                        <i class="fas fa-envelope text-white/70 group-hover:text-secondary text-xs mr-1"></i>
+                                        <span class="text-white text-xs">Email</span>
+                                    </label>
+                                    <label class="flex items-center p-2 rounded-lg bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 hover:border-secondary/30 transition-colors group">
+                                        <input type="radio" name="contactMethod" value="phone" required class="mr-2 accent-secondary" style="width: 14px; height: 14px;">
+                                        <i class="fas fa-phone text-white/70 group-hover:text-secondary text-xs mr-1"></i>
+                                        <span class="text-white text-xs">Phone</span>
+                                    </label>
+                                    <label class="flex items-center p-2 rounded-lg bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 hover:border-secondary/30 transition-colors group">
+                                        <input type="radio" name="contactMethod" value="whatsapp" required class="mr-2 accent-secondary" style="width: 14px; height: 14px;">
+                                        <i class="fab fa-whatsapp text-white/70 group-hover:text-secondary text-xs mr-1"></i>
+                                        <span class="text-white text-xs">WhatsApp</span>
+                                    </label>
+                                    <label class="flex items-center p-2 rounded-lg bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 hover:border-secondary/30 transition-colors group">
+                                        <input type="radio" name="contactMethod" value="video" required class="mr-2 accent-secondary" style="width: 14px; height: 14px;">
+                                        <i class="fas fa-video text-white/70 group-hover:text-secondary text-xs mr-1"></i>
+                                        <span class="text-white text-xs">Video</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <label for="message" class="block text-white font-medium mb-1.5 text-sm">Project Details / Message *</label>
+                            <textarea id="message" name="message" rows="3" required
+                                class="w-full px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors resize-none text-sm"
+                                placeholder="Tell us about your project, goals, and requirements..."></textarea>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div>
+                            <label for="documents" class="block text-white font-medium mb-1.5 text-sm">Upload Documents (Optional)</label>
+                            <input type="file" id="documents" name="documents" multiple
+                                accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+                                class="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white/70 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-secondary/20 file:text-secondary file:cursor-pointer hover:file:bg-secondary/30 focus:outline-none focus:border-secondary transition-colors text-sm">
+                            <p class="text-white/50 text-xs mt-1.5">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                PDF, DOC, XLS, JPG, PNG (Max 10MB per file)
+                            </p>
+                        </div>
+
+                        <!-- Submit Button and Footer -->
+                        <div class="pt-2">
+                            <button type="submit" class="w-full btn-primary py-3 text-base font-semibold">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Send Message
+                            </button>
+                            <div class="flex items-center justify-center gap-4 mt-4 text-xs text-white/60">
+                                <p>
+                                    <i class="fas fa-clock text-secondary mr-1"></i>
+                                    Response within 2 hours
+                                </p>
+                                <span class="text-white/20">|</span>
+                                <p>
+                                    <i class="fas fa-shield-alt text-secondary mr-1"></i>
+                                    <a href="#" class="hover:text-secondary transition-colors">Privacy Policy</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="py-20 relative gradient-bg overflow-hidden">
+        <div class="floating-element w-96 h-96 -top-48 -right-48 bg-gradient-to-bl from-secondary/20 to-accent/20 animate-float-slow"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-display font-bold mb-8">
+                    Ready to Transform Your Business?
+                </h2>
+                <p class="text-xl text-subtle mb-12 max-w-3xl mx-auto">
+                    Schedule a complimentary 30-minute consultation with our senior consultants to discuss your business goals and challenges.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <button class="btn-primary">
+                        <i class="fas fa-calendar-check mr-3"></i> Book Free Consultation
+                    </button>
+                    <button class="px-12 py-4 rounded-lg font-semibold border-2 border-secondary/30 text-white hover:bg-secondary/10 transition-all duration-300">
+                        <i class="fas fa-phone-alt mr-3"></i> Call Us Now
+                    </button>
+                </div>
+                <p class="mt-8 text-muted">
+                    Response guaranteed within 2 business hours
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Chat Widget -->
+    <div id="whatsappWidget" class="whatsapp-widget">
+        <div class="whatsapp-widget-header">
+            <div class="whatsapp-widget-header-left">
+                <img src="assest/images/flescarlogo.webp" alt="Flescar Legal Logo" class="whatsapp-widget-logo" style="width: 40px; height: 40px; object-fit: contain; background: white; border-radius: 50%; padding: 4px;">
+                <div class="whatsapp-widget-header-text">
+                    <h4>East Africa Business Consultants</h4>
+                    <p>
+                        <span class="whatsapp-widget-status-dot"></span>
+                        Typically replies within minutes
+                    </p>
+                </div>
+            </div>
+            <button class="whatsapp-widget-close" onclick="closeWhatsAppWidget()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="whatsapp-widget-message">
+            <div class="whatsapp-widget-bubble">
+                We offer free consultation. Send a message to speak to a consultant.
+            </div>
+        </div>
+        <button class="whatsapp-widget-button" onclick="openWhatsApp()">
+            <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
+            WhatsApp Us
+        </button>
+        <div class="whatsapp-widget-footer">
+            <div class="whatsapp-widget-footer-online">
+                <span class="whatsapp-widget-footer-online-dot"></span>
+                <span>Online</span>
+            </div>
+            <a href="#" class="text-gray-600 hover:text-gray-800" style="text-decoration: none;">Privacy policy</a>
+        </div>
+    </div>
+
+    <!-- Floating Contact Button -->
+    <button class="floating-contact-btn" onclick="toggleWhatsAppWidget()" aria-label="Contact Us on WhatsApp">
+        <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
+    </button>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-primary rounded-2xl p-8 max-w-md w-full border border-secondary/20 relative">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold mb-2 text-white">Get In Touch</h3>
+            <p class="text-white/70 mb-6">Fill out the form below and we'll get back to you within 2 business hours.</p>
+            <form class="space-y-4">
+                <div>
+                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors">
+                </div>
+                <div>
+                    <input type="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors">
+                </div>
+                <div>
+                    <input type="tel" placeholder="Phone Number" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors">
+                </div>
+                <div>
+                    <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:border-secondary transition-colors resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full btn-primary">
+                    <i class="fas fa-paper-plane mr-2"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-b from-primary to-black text-white relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/30 to-transparent"></div>
+        <div class="absolute top-20 right-10 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 left-10 w-48 h-48 bg-accent/5 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-6 lg:px-12 xl:px-16 relative z-10 max-w-7xl">
+            <!-- Main Footer Content -->
+            <div class="pt-20 pb-12">
+                <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 mb-16">
+                    <!-- Company Info -->
+                    <div class="lg:col-span-1">
+                        <div class="mb-6">
+                            <img src="assest/images/flescarlogo.webp" alt="Flescar Legal Logo" class="h-16 w-auto object-contain mb-4">
+                            <div class="space-y-1">
+                                <div class="font-display text-lg font-bold text-white">EAST AFRICA</div>
+                                <div class="text-sm font-semibold text-secondary">BUSINESS CONSULTANTS</div>
+                            </div>
+                        </div>
+                        <p class="text-white/70 text-sm leading-relaxed mb-6">
+                            Award-winning business consultancy providing strategic advisory services across East and Central Africa for over a decade.
+                        </p>
+                        <!-- Social Media -->
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-secondary/20 border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-secondary/50 hover:scale-110 group">
+                                <i class="fab fa-linkedin-in text-white/70 group-hover:text-secondary transition-colors"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-secondary/20 border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-secondary/50 hover:scale-110 group">
+                                <i class="fab fa-twitter text-white/70 group-hover:text-secondary transition-colors"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-secondary/20 border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-secondary/50 hover:scale-110 group">
+                                <i class="fab fa-facebook-f text-white/70 group-hover:text-secondary transition-colors"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-secondary/20 border border-white/10 flex items-center justify-center transition-all duration-300 hover:border-secondary/50 hover:scale-110 group">
+                                <i class="fab fa-instagram text-white/70 group-hover:text-secondary transition-colors"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Links and Our Services - Two columns on smaller devices, separate on large screens -->
+                    <div class="md:col-span-2 lg:col-span-2">
+                        <div class="grid grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-12">
+                            <!-- Quick Links -->
+                            <div>
+                                <h4 class="text-lg font-bold mb-6 text-white relative inline-block">
+                                    Quick Links
+                                    <span class="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-secondary to-accent"></span>
+                                </h4>
+                                <ul class="space-y-3">
+                                    <li>
+                                        <a href="#home" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Home</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#about" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>About Us</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#services" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Services</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#process" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Our Process</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#clients" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Case Studies</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#faq" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>FAQ</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Our Services -->
+                            <div>
+                                <h4 class="text-lg font-bold mb-6 text-white relative inline-block">
+                                    Our Services
+                                    <span class="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-secondary to-accent"></span>
+                                </h4>
+                                <ul class="space-y-3">
+                                    <li>
+                                        <a href="#" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Business Registration</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Company Setup</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Business Scaling</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Exit Strategy</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>Compliance Services</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-white/70 hover:text-secondary transition-colors flex items-center group">
+                                            <i class="fas fa-chevron-right text-xs mr-2 opacity-0 group-hover:opacity-100 transition-opacity text-secondary"></i>
+                                            <span>M&A Advisory</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-lg font-bold mb-6 text-white relative inline-block">
+                            Contact Us
+                            <span class="absolute bottom-0 left-0 w-12 h-0.5 bg-gradient-to-r from-secondary to-accent"></span>
+                        </h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start group">
+                                <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center mr-4 flex-shrink-0 group-hover:bg-secondary/20 transition-colors">
+                                    <i class="fas fa-map-marker-alt text-secondary"></i>
+                                </div>
+                                <div>
+                                    <span class="text-white/70 text-sm leading-relaxed block">
+                                        2129 Office Suites, 3rd floor, Office No 306<br>
+                                        Muthithi Rd, Westlands, Nairobi, Kenya
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="flex items-center group">
+                                <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center mr-4 flex-shrink-0 group-hover:bg-secondary/20 transition-colors">
+                                    <i class="fas fa-phone text-secondary"></i>
+                                </div>
+                                <a href="tel:+254718079866" class="text-white/70 hover:text-secondary transition-colors">
+                                    +254 718 079 866
+                                </a>
+                            </li>
+                            <li class="flex items-center group">
+                                <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center mr-4 flex-shrink-0 group-hover:bg-secondary/20 transition-colors">
+                                    <i class="fas fa-envelope text-secondary"></i>
+                                </div>
+                                <a href="mailto:customerservice@eastafricabusinessconsultants.com" class="text-white/70 hover:text-secondary transition-colors text-sm break-all">
+                                    customerservice@eastafricabusinessconsultants.com
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8 pb-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left">
+                        <p class="text-white/60 text-sm">
+                            © 2024 <span class="text-secondary font-semibold">East Africa Business Consultants</span>. All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6 text-sm">
+                        <a href="#" class="text-white/60 hover:text-secondary transition-colors">Privacy Policy</a>
+                        <span class="text-white/20">|</span>
+                        <a href="#" class="text-white/60 hover:text-secondary transition-colors">Terms of Service</a>
+                        <span class="text-white/20">|</span>
+                        <a href="#" class="text-white/60 hover:text-secondary transition-colors">Cookie Policy</a>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-white/50 text-xs">
+                        Professional business advisory services in Kenya, Tanzania, Uganda, Rwanda, DRC, Zambia, and across East Africa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script>
+        // Initialize AOS after page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAOS);
+        } else {
+            initAOS();
+        }
+        
+        function initAOS() {
+            // Wait for AOS to be available
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 50,
+                    delay: 0,
+                    disable: window.innerWidth < 768 ? 'mobile' : false
+                });
+            } else {
+                // Retry if AOS not loaded yet
+                setTimeout(initAOS, 100);
+            }
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuToggle.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.className = 'fas fa-bars';
+            } else {
+                icon.className = 'fas fa-times';
+            }
+        });
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+
+        // FAQ Toggle Function
+        function toggleFAQ(index) {
+            const faqItem = document.querySelectorAll('.faq-item')[index - 1];
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // If it wasn't active, open it
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Animate counters
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    element.classList.add('animated');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 20);
+        }
+
+        // Initialize counters when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-number');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-count'));
+                        animateCounter(counter, target);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe sections for counters
+        const aboutSection = document.querySelector('#about');
+        const homeSection = document.querySelector('#home');
+        
+        if (aboutSection) observer.observe(aboutSection);
+        if (homeSection) observer.observe(homeSection);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Sticky header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+
+        // Initialize GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Enhanced particle system
+        class EnhancedParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('particle-canvas');
+                if (!this.canvas) return;
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                this.init();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() {
+                if (!this.canvas) return;
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.width = this.canvas.width;
+                this.height = this.canvas.height;
+            }
+            
+            init() {
+                // Create optimized particles (further reduced for better performance)
+                const particleCount = window.innerWidth < 768 ? 40 : window.innerWidth < 1024 ? 70 : 90;
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.width,
+                        y: Math.random() * this.height,
+                        size: Math.random() * 2 + 0.5,
+                        speedX: Math.random() * 0.5 - 0.25,
+                        speedY: Math.random() * 0.5 - 0.25,
+                        color: `rgba(212, 175, 55, ${Math.random() * 0.2 + 0.1})`,
+                        glow: Math.random() * 8 + 3,
+                        life: Math.random() * 100
+                    });
+                }
+            }
+            
+            animate() {
+                if (!this.canvas || !this.ctx) return;
+                this.ctx.clearRect(0, 0, this.width, this.height);
+                
+                // Draw glow background (cached for performance)
+                if (!this.gradientCache) {
+                    this.gradientCache = this.ctx.createRadialGradient(
+                        this.width / 2, this.height / 2, 0,
+                        this.width / 2, this.height / 2, Math.max(this.width, this.height) / 2
+                    );
+                    this.gradientCache.addColorStop(0, 'rgba(212, 175, 55, 0.05)');
+                    this.gradientCache.addColorStop(1, 'transparent');
+                }
+                this.ctx.fillStyle = this.gradientCache;
+                this.ctx.fillRect(0, 0, this.width, this.height);
+                
+                // Update and draw particles
+                for (let particle of this.particles) {
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    particle.life += 0.5;
+                    
+                    // Wrap around edges
+                    if (particle.x > this.width) particle.x = 0;
+                    if (particle.x < 0) particle.x = this.width;
+                    if (particle.y > this.height) particle.y = 0;
+                    if (particle.y < 0) particle.y = this.height;
+                    
+                    // Draw particle with glow
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    
+                    // Glow effect
+                    const glowGradient = this.ctx.createRadialGradient(
+                        particle.x, particle.y, 0,
+                        particle.x, particle.y, particle.glow
+                    );
+                    glowGradient.addColorStop(0, particle.color);
+                    glowGradient.addColorStop(1, 'transparent');
+                    
+                    this.ctx.fillStyle = glowGradient;
+                    this.ctx.fill();
+                    
+                    // Pulsing effect
+                    particle.size = Math.sin(particle.life * 0.05) * 0.5 + 1.5;
+                    
+                    // Draw connections (optimized - only check nearby particles)
+                    const maxConnections = 3;
+                    let connectionCount = 0;
+                    for (let otherParticle of this.particles) {
+                        if (connectionCount >= maxConnections) break;
+                        const dx = particle.x - otherParticle.x;
+                        const dy = particle.y - otherParticle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100 && distance > 0) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(particle.x, particle.y);
+                            this.ctx.lineTo(otherParticle.x, otherParticle.y);
+                            
+                            const alpha = 0.15 * (1 - distance/100);
+                            this.ctx.strokeStyle = `rgba(212, 175, 55, ${alpha})`;
+                            this.ctx.lineWidth = 0.5;
+                            this.ctx.stroke();
+                            connectionCount++;
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // 3D Globe with Three.js
+        class InteractiveGlobe {
+            constructor() {
+                this.container = document.getElementById('globe-canvas');
+                if (!this.container) return;
+                
+                // Check if THREE is available
+                if (typeof THREE === 'undefined') {
+                    console.warn('Three.js not loaded, skipping globe initialization');
+                    return;
+                }
+                
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+                this.renderer = new THREE.WebGLRenderer({ 
+                    canvas: this.container,
+                    alpha: true,
+                    antialias: true 
+                });
+                
+                this.controls = null;
+                this.globe = null;
+                this.cities = [];
+                this.resize();
+                this.init();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() {
+                if (!this.container) return;
+                const width = this.container.clientWidth;
+                const height = this.container.clientHeight;
+                
+                this.camera.aspect = width / height;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(width, height);
+            }
+            
+            init() {
+                // Setup renderer
+                this.renderer.setClearColor(0x000000, 0);
+                this.renderer.shadowMap.enabled = true;
+                this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                
+                // Position camera
+                this.camera.position.z = 5;
+                
+                // Add lighting
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+                this.scene.add(ambientLight);
+                
+                const directionalLight = new THREE.DirectionalLight(0xD4AF37, 0.8);
+                directionalLight.position.set(5, 3, 5);
+                directionalLight.castShadow = true;
+                this.scene.add(directionalLight);
+                
+                // Create globe
+                const geometry = new THREE.SphereGeometry(2, 32, 32);
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0x0A0F1C,
+                    emissive: 0xD4AF37,
+                    emissiveIntensity: 0.2,
+                    shininess: 100,
+                    transparent: true,
+                    opacity: 0.9,
+                    side: THREE.DoubleSide
+                });
+                
+                this.globe = new THREE.Mesh(geometry, material);
+                this.scene.add(this.globe);
+                
+                // Add wireframe
+                const wireframe = new THREE.WireframeGeometry(geometry);
+                const line = new THREE.LineSegments(wireframe);
+                line.material.color.set(0xD4AF37);
+                line.material.transparent = true;
+                line.material.opacity = 0.3;
+                this.scene.add(line);
+                
+                // Add floating cities as particles
+                this.createCities();
+            }
+            
+            createCities() {
+                const cityPositions = [
+                    { lat: 1.2921, lng: 36.8219, name: 'Nairobi' }, // Kenya
+                    { lat: 0.3476, lng: 32.5825, name: 'Kampala' }, // Uganda
+                    { lat: -6.7924, lng: 39.2083, name: 'Dar es Salaam' }, // Tanzania
+                    { lat: -15.3875, lng: 28.3228, name: 'Lusaka' }, // Zambia
+                    { lat: -1.9441, lng: 30.0619, name: 'Kigali' }, // Rwanda
+                    { lat: -4.4419, lng: 15.2663, name: 'DRC' } // DRC
+                ];
+                
+                cityPositions.forEach(city => {
+                    // Convert lat/lng to 3D position
+                    const phi = (90 - city.lat) * Math.PI / 180;
+                    const theta = (city.lng + 180) * Math.PI / 180;
+                    
+                    const x = 2.3 * Math.sin(phi) * Math.cos(theta);
+                    const y = 2.3 * Math.cos(phi);
+                    const z = 2.3 * Math.sin(phi) * Math.sin(theta);
+                    
+                    // Create city marker
+                    const geometry = new THREE.SphereGeometry(0.08, 16, 16);
+                    const material = new THREE.MeshPhongMaterial({
+                        color: 0xD4AF37,
+                        emissive: 0xFFD166,
+                        emissiveIntensity: 0.5
+                    });
+                    
+                    const cityMesh = new THREE.Mesh(geometry, material);
+                    cityMesh.position.set(x, y, z);
+                    this.scene.add(cityMesh);
+                    
+                    // Create glow effect
+                    const glowGeometry = new THREE.SphereGeometry(0.12, 16, 16);
+                    const glowMaterial = new THREE.MeshBasicMaterial({
+                        color: 0xD4AF37,
+                        transparent: true,
+                        opacity: 0.3
+                    });
+                    
+                    const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+                    glow.position.set(x, y, z);
+                    this.scene.add(glow);
+                    
+                    // Animate glow
+                    gsap.to(glow.scale, {
+                        x: 1.5,
+                        y: 1.5,
+                        z: 1.5,
+                        duration: 2,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: "sine.inOut"
+                    });
+                    
+                    this.cities.push({ mesh: cityMesh, glow, originalPos: { x, y, z } });
+                });
+                
+                // Create connection lines
+                this.createConnections();
+            }
+            
+            createConnections() {
+                const lineMaterial = new THREE.LineBasicMaterial({
+                    color: 0xD4AF37,
+                    transparent: true,
+                    opacity: 0.3,
+                    linewidth: 2
+                });
+                
+                // Connect each city to every other city
+                for (let i = 0; i < this.cities.length; i++) {
+                    for (let j = i + 1; j < this.cities.length; j++) {
+                        const city1 = this.cities[i];
+                        const city2 = this.cities[j];
+                        
+                        const points = [
+                            new THREE.Vector3(city1.originalPos.x, city1.originalPos.y, city1.originalPos.z),
+                            new THREE.Vector3(city2.originalPos.x, city2.originalPos.y, city2.originalPos.z)
+                        ];
+                        
+                        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                        const line = new THREE.Line(geometry, lineMaterial);
+                        this.scene.add(line);
+                        
+                        // Animate line
+                        gsap.to(line.material, {
+                            opacity: 0.6,
+                            duration: 2,
+                            repeat: -1,
+                            yoyo: true,
+                            delay: Math.random() * 2,
+                            ease: "sine.inOut"
+                        });
+                    }
+                }
+            }
+            
+            animate() {
+                if (!this.renderer || !this.scene || !this.camera) return;
+                
+                requestAnimationFrame(() => this.animate());
+                
+                // Auto-rotate globe (optimized)
+                if (this.globe) {
+                    this.globe.rotation.y += 0.0015; // Slightly slower for better performance
+                }
+                
+                // Animate cities (optimized)
+                const time = Date.now() * 0.001;
+                this.cities.forEach((city, i) => {
+                    if (city.mesh && city.originalPos) {
+                        city.mesh.position.y = city.originalPos.y + Math.sin(time + i) * 0.08;
+                    }
+                    if (city.glow && city.originalPos) {
+                        city.glow.position.y = city.originalPos.y + Math.sin(time + i) * 0.08;
+                    }
+                });
+                
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        // Initialize systems (optimized loading)
+        let particleSystem;
+        let interactiveGlobe;
+        
+        // Load particle system after page is interactive (using requestIdleCallback)
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                try {
+                    particleSystem = new EnhancedParticleSystem();
+                } catch (e) {
+                    console.warn('Particle system initialization failed:', e);
+                }
+            }, { timeout: 2000 });
+        } else {
+            // Fallback for browsers without requestIdleCallback
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    try {
+                        particleSystem = new EnhancedParticleSystem();
+                    } catch (e) {
+                        console.warn('Particle system initialization failed:', e);
+                    }
+                }, 500);
+            });
+        }
+        
+        // Lazy load heavy 3D globe after page is interactive (only on desktop)
+        function loadGlobe() {
+            if (interactiveGlobe || window.innerWidth < 1024) return; // Skip on mobile/tablet
+            
+            try {
+                interactiveGlobe = new InteractiveGlobe();
+            } catch (e) {
+                console.warn('Globe initialization failed:', e);
+            }
+        }
+        
+        // Load globe when page is idle or after a delay (only on desktop)
+        if (window.innerWidth >= 1024) {
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadGlobe, { timeout: 3000 });
+            } else {
+                setTimeout(loadGlobe, 2000);
+            }
+        }
+
+        // Advanced animations with GSAP (optimized)
+        function initializeAnimations() {
+            // Animate headline words (faster initial animation)
+            const headlineWords = document.querySelectorAll('.headline-word');
+            if (headlineWords.length > 0) {
+                // Make first two words visible immediately to prevent cutoff
+                if (headlineWords[0]) gsap.set(headlineWords[0], { opacity: 1, y: 0 });
+                if (headlineWords[1]) gsap.set(headlineWords[1], { opacity: 1, y: 0 });
+                
+                // Animate all words
+                gsap.to(headlineWords, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.08,
+                    ease: "power2.out",
+                    delay: 0.1
+                });
+            }
+            
+            // Animate subtitle
+            const subtitle = document.getElementById('animated-subtitle');
+            if (subtitle) {
+                gsap.to(subtitle, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    delay: 0.6
+                });
+            }
+            
+            // Animate CTA buttons
+            const ctaButtons = document.getElementById('animated-cta');
+            if (ctaButtons) {
+                gsap.to(ctaButtons, {
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    delay: 0.9
+                });
+            }
+            
+            // Animate trust indicators
+            const trustIndicators = document.getElementById('animated-trust');
+            if (trustIndicators) {
+                gsap.to(trustIndicators, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    delay: 1.1
+                });
+            }
+            
+            // Defer heavy animations
+            createCityConnections();
+            
+            // Animate floating cities (deferred)
+            setTimeout(() => {
+                const cities = document.querySelectorAll('.floating-city');
+                cities.forEach((city, i) => {
+                    gsap.to(city, {
+                        y: () => Math.sin(Date.now() * 0.001 + i) * 20,
+                        rotation: () => Math.sin(Date.now() * 0.0005 + i) * 10,
+                        duration: 3,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: "sine.inOut"
+                    });
+                });
+            }, 500);
+        }
+
+        function createCityConnections() {
+            // Defer connection creation for better performance
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                    _createConnections();
+                }, { timeout: 2000 });
+            } else {
+                setTimeout(_createConnections, 1000);
+            }
+        }
+        
+        function _createConnections() {
+            const cities = document.querySelectorAll('.floating-city');
+            const container = document.querySelector('.globe-container');
+            if (!container || cities.length === 0) return;
+            
+            // Create connections between cities (optimized)
+            for (let i = 0; i < cities.length; i++) {
+                for (let j = i + 1; j < cities.length; j++) {
+                    const city1 = cities[i];
+                    const city2 = cities[j];
+                    
+                    const line = document.createElement('div');
+                    line.className = 'city-connection';
+                    
+                    const rect1 = city1.getBoundingClientRect();
+                    const rect2 = city2.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    
+                    const x1 = rect1.left + rect1.width/2 - containerRect.left;
+                    const y1 = rect1.top + rect1.height/2 - containerRect.top;
+                    const x2 = rect2.left + rect2.width/2 - containerRect.left;
+                    const y2 = rect2.top + rect2.height/2 - containerRect.top;
+                    
+                    const dx = x2 - x1;
+                    const dy = y2 - y1;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+                    
+                    line.style.width = `${length}px`;
+                    line.style.left = `${x1}px`;
+                    line.style.top = `${y1}px`;
+                    line.style.transform = `rotate(${angle}deg)`;
+                    
+                    // Animate line drawing
+                    gsap.fromTo(line, 
+                        { scaleX: 0, opacity: 0 },
+                        { 
+                            scaleX: 1, 
+                            opacity: 0.5,
+                            duration: 1.5,
+                            delay: Math.random() * 0.5,
+                            ease: "power2.out"
+                        }
+                    );
+                    
+                    container.appendChild(line);
+                }
+            }
+        }
+
+        // Animated counters
+        function animateCounter(elementId, targetValue, suffix = '') {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            let current = 0;
+            const increment = targetValue / 100;
+            
+            const updateCounter = () => {
+                current += increment;
+                if (current < targetValue) {
+                    element.textContent = Math.floor(current) + suffix;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = targetValue + suffix;
+                    
+                    // Add celebration effect
+                    gsap.to(element, {
+                        scale: 1.2,
+                        duration: 0.3,
+                        yoyo: true,
+                        repeat: 1,
+                        ease: "power2.out"
+                    });
+                }
+            };
+            
+            // Start animation when element is in view
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    updateCounter();
+                    observer.disconnect();
+                }
+            });
+            
+            observer.observe(element);
+        }
+
+
+        // Interactive city hover effects
+        function setupCityInteractions() {
+            const cities = document.querySelectorAll('.floating-city');
+            
+            cities.forEach(city => {
+                city.addEventListener('mouseenter', () => {
+                    // Highlight city
+                    gsap.to(city, {
+                        scale: 1.3,
+                        duration: 0.3,
+                        ease: "back.out(1.7)"
+                    });
+                    
+                    // Pulse glow
+                    gsap.to(city, {
+                        boxShadow: '0 0 40px rgba(212, 175, 55, 0.6)',
+                        duration: 0.5,
+                        yoyo: true,
+                        repeat: 1
+                    });
+                });
+                
+                city.addEventListener('mouseleave', () => {
+                    gsap.to(city, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                });
+                
+                city.addEventListener('click', () => {
+                    // Create ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: 100px;
+                        height: 100px;
+                        border: 2px solid #D4AF37;
+                        border-radius: 50%;
+                        pointer-events: none;
+                        left: ${city.offsetLeft - 10}px;
+                        top: ${city.offsetTop - 10}px;
+                        transform: scale(0);
+                        opacity: 1;
+                    `;
+                    
+                    city.parentElement.appendChild(ripple);
+                    
+                    gsap.to(ripple, {
+                        scale: 3,
+                        opacity: 0,
+                        duration: 1,
+                        ease: "power2.out",
+                        onComplete: () => ripple.remove()
+                    });
+                    
+                    // Show city info modal (simulated)
+                    showCityInfo(city.dataset.city);
+                });
+            });
+        }
+
+        function showCityInfo(cityName) {
+            // In production, this would show a modal with city-specific info
+            const messages = {
+                'Nairobi': 'Headquarters - Strategic hub for East African operations',
+                'Kampala': 'Uganda Branch - Expertise in local market regulations',
+                'Dar es Salaam': 'Tanzania Branch - Port city business facilitation',
+                'Lusaka': 'Zambia Partner - Mining and resource sector specialists',
+                'Kigali': 'Rwanda Associates - Fastest growing African economy',
+                'DRC': 'DRC Operations - Resource and infrastructure consulting'
+            };
+            
+            // You can replace this with a modal
+            console.log(`${cityName}: ${messages[cityName]}`);
+        }
+
+        function scrollToNext() {
+            const nextSection = document.querySelector('#about');
+            if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            }
+        }
+
+        // Initialize everything (optimized for faster initial load)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start critical animations immediately
+            initializeAnimations();
+            
+            // Setup counters when visible (using IntersectionObserver)
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        if (id === 'years-count') animateCounter('years-count', 10, '+');
+                        if (id === 'clients-count') animateCounter('clients-count', 200, '+');
+                        if (id === 'countries-count') animateCounter('countries-count', 12, '+');
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe counter elements
+            const yearsEl = document.getElementById('years-count');
+            const clientsEl = document.getElementById('clients-count');
+            const countriesEl = document.getElementById('countries-count');
+            if (yearsEl) counterObserver.observe(yearsEl);
+            if (clientsEl) counterObserver.observe(clientsEl);
+            if (countriesEl) counterObserver.observe(countriesEl);
+            
+            // Setup interactions after page is interactive
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(setupCityInteractions, { timeout: 1000 });
+            } else {
+                setTimeout(setupCityInteractions, 500);
+            }
+        });
+
+
+        // Parallax effect for floating elements
+        gsap.utils.toArray('.floating-element').forEach((element, i) => {
+            gsap.to(element, {
+                y: () => Math.sin(Date.now() * 0.001 + i) * 20,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+        });
+
+        // Animate cards on scroll
+        gsap.utils.toArray('.premium-card').forEach((card, i) => {
+            // Set initial state to visible
+            gsap.set(card, { opacity: 1, y: 0 });
+            
+            gsap.fromTo(card, 
+                {
+                    y: 50,
+                    opacity: 0
+                },
+                {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    ease: 'power2.out'
+                }
+            );
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add loaded class for animations
+            document.body.classList.add('loaded');
+            
+            // Show WhatsApp widget after a short delay
+            setTimeout(() => {
+                showWhatsAppWidget();
+            }, 1000);
+        });
+
+        // WhatsApp Widget Functions
+        function showWhatsAppWidget() {
+            const widget = document.getElementById('whatsappWidget');
+            if (widget) {
+                widget.classList.add('show');
+            }
+        }
+
+        function closeWhatsAppWidget() {
+            const widget = document.getElementById('whatsappWidget');
+            if (widget) {
+                widget.classList.remove('show');
+            }
+        }
+
+        function toggleWhatsAppWidget() {
+            const widget = document.getElementById('whatsappWidget');
+            if (widget) {
+                widget.classList.toggle('show');
+            }
+        }
+
+        // Open WhatsApp function
+        function openWhatsApp() {
+            const phoneNumber = '254718079866'; // Phone number without + sign
+            const message = encodeURIComponent('Hello! I would like to get in touch with East Africa Business Consultants.');
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Scroll to CTA function
+        function scrollToCTA() {
+            const ctaSection = document.getElementById('cta');
+            if (ctaSection) {
+                ctaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                // Fallback: open contact modal
+                openContactModal();
+            }
+        }
+
+        // Open Contact Modal
+        function openContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close Contact Modal
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('contactModal');
+            if (modal && e.target === modal) {
+                closeContactModal();
+            }
+        });
+
+        // Close WhatsApp widget when clicking outside
+        document.addEventListener('click', (e) => {
+            const widget = document.getElementById('whatsappWidget');
+            const floatingBtn = document.querySelector('.floating-contact-btn');
+            
+            // Check if widget is open and click is outside both widget and button
+            if (widget && widget.classList.contains('show')) {
+                const isClickInsideWidget = widget.contains(e.target);
+                const isClickOnButton = floatingBtn && floatingBtn.contains(e.target);
+                
+                if (!isClickInsideWidget && !isClickOnButton) {
+                    closeWhatsAppWidget();
+                }
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeContactModal();
+            }
+        });
+
+        // Handle contact form submission (Modal)
+        const contactModalForm = document.querySelector('#contactModal form');
+        if (contactModalForm) {
+            contactModalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Here you would normally send the form data to a server
+                alert('Thank you for your message! We will get back to you within 2 business hours.');
+                closeContactModal();
+                contactModalForm.reset();
+            });
+        }
+
+        // Handle main contact form submission
+        const mainContactForm = document.getElementById('contactForm');
+        if (mainContactForm) {
+            mainContactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(mainContactForm);
+                const formObject = {};
+                formData.forEach((value, key) => {
+                    formObject[key] = value;
+                });
+                
+                // Validate file size (10MB max per file)
+                const fileInput = document.getElementById('documents');
+                if (fileInput && fileInput.files.length > 0) {
+                    const maxSize = 10 * 1024 * 1024; // 10MB
+                    for (let file of fileInput.files) {
+                        if (file.size > maxSize) {
+                            alert(`File "${file.name}" exceeds 10MB limit. Please upload a smaller file.`);
+                            return;
+                        }
+                    }
+                }
+                
+                // Show success message
+                const submitButton = mainContactForm.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+                submitButton.disabled = true;
+                
+                // Simulate form submission (replace with actual API call)
+                setTimeout(() => {
+                    alert('Thank you for your inquiry! Our team will contact you within 2 business hours via your preferred method.');
+                    mainContactForm.reset();
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    
+                    // Scroll to top of form section
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 1500);
+                
+                // In production, you would send the data to your server:
+                // fetch('/api/contact', {
+                //     method: 'POST',
+                //     body: formData
+                // }).then(response => response.json())
+                //   .then(data => { /* handle success */ })
+                //   .catch(error => { /* handle error */ });
+            });
+        }
+    </script>
+</body>
+</html>
